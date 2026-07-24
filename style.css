@@ -29,6 +29,17 @@ body {
     color: #607d8b; /* Blue Grey - Elegan dan kalem */
     letter-spacing: -0.5px;
 }
+/* Ikon WhatsApp Header */
+.header-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    margin-right: 5px;
+}
+.header-wa:hover {
+    transform: scale(1.15); /* Efek membesar saat disentuh */
+}
 .search-bar { 
     flex-grow: 1; 
     display: flex;
