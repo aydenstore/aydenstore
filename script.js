@@ -1,4 +1,4 @@
-const nomorWA = "6282386130512";
+const nomorWA = "6283153215582";
 let keranjang = [];
 
 function cariProduk() {
