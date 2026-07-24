@@ -3,216 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AYDEN STORE - Pusat Gadget & PPOB</title>
-    <!-- Memanggil file CSS -->
+    <title>AYDEN STORE - Order Online</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header Utama (Clean White) -->
     <header class="header">
         <div class="logo">
             <h1>AYDEN STORE</h1>
         </div>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Cari aksesoris atau layanan...">
-            <button onclick="cariProduk()">Cari</button>
-        </div>
-        <div class="header-icons" onclick="bukaKeranjang()" style="position: relative; cursor: pointer;">
-            <span class="cart-icon">🛒</span>
-            <span id="cartBadge" class="cart-badge">0</span>
+            <input type="text" id="searchInput" placeholder="Cari produk di Ayden Store..." onkeyup="cariProduk()">
+            <button onclick="cariProduk()">🔍</button>
         </div>
     </header>
+
+    <!-- Kategori Menu (Bisa digeser ke samping) -->
+    <nav class="category-nav">
+        <a href="#kategori-gadget" class="cat-btn">📱 Gadget & PPOB</a>
+        <a href="#kategori-pedas" class="cat-btn">🌶️ Menu Pedas</a>
+        <a href="#kategori-spaghetti" class="cat-btn">🍝 Spaghetti</a>
+        <a href="#kategori-kering" class="cat-btn">🍟 Menu Kering</a>
+        <a href="#kategori-corndog" class="cat-btn">🌭 Corndog</a>
+        <a href="#kategori-minuman" class="cat-btn">🥤 Minuman</a>
+    </nav>
     
     <!-- Pop-up Keranjang Belanja -->
     <div id="cartModal" class="cart-modal">
         <div class="cart-content">
             <span class="close-cart" onclick="tutupKeranjang()">&times;</span>
             <h2>Keranjang Belanja</h2>
-            <ul id="cartList" class="cart-list">
-                <!-- Daftar pesanan akan muncul di sini otomatis -->
-            </ul>
-            <button class="checkout-btn" onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
+            <ul id="cartList" class="cart-list"></ul>
+            <button class="checkout-btn-modal" onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
         </div>
     </div>
 
     <main class="container">
-        <!-- Banner -->
+        <!-- Banner Promo -->
         <section class="banner">
-            <h2>Selamat Datang di AYDEN STORE</h2>
-            <p>Pusat aksesoris gadget kekinian, layanan seluler, dan kemudahan transaksi PPOB Anda.</p>
+            <h2>Promo Spesial Hari Ini!</h2>
+            <p>Nikmati kemudahan belanja gadget & cemilan dalam satu tempat.</p>
         </section>
         
-        <!-- Produk Gadget & Layanan -->
-        <h3 class="section-title">Produk & Layanan Unggulan</h3>
-        <section class="product-grid" id="productGrid">
-            <div class="product-card">
-                <div class="product-image">Casing & Anti Gores</div>
-                <div class="product-info">
-                    <p class="product-title">Aksesoris Gadget Lengkap & Kekinian</p>
-                    <p class="product-price">Mulai Rp 15.000</p>
-                    <button class="buy-btn" onclick="tambahKeKeranjang('Aksesoris Gadget')">Tambah ke Keranjang</button>
+        <!-- KATEGORI: GADGET & PPOB -->
+        <div id="kategori-gadget" class="category-section">
+            <h3 class="section-title">Gadget & PPOB</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/aksesoris-gadget.png" alt="Aksesoris Gadget">
+                    <div class="product-info">
+                        <p class="product-title">Aksesoris Gadget Lengkap</p>
+                        <p class="product-price">Mulai Rp 15.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Aksesoris Gadget')">+ Tambah</button>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">Pulsa & Data</div>
-                <div class="product-info">
-                    <p class="product-title">Top Up Pulsa, Data & Token Listrik</p>
-                    <p class="product-price">Proses Super Cepat</p>
-                    <button class="buy-btn" onclick="tambahKeKeranjang('Pulsa & PPOB')">Tambah ke Keranjang</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/top-up-pulsa.png" alt="Top Up Pulsa, Data & Token">
+                    <div class="product-info">
+                        <p class="product-title">Top Up Pulsa, Data & Token</p>
+                        <p class="product-price">Proses Cepat</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Pulsa & PPOB')">+ Tambah</button>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">Transfer Bank</div>
-                <div class="product-info">
-                    <p class="product-title">Layanan Transfer & Perbankan</p>
-                    <p class="product-price">Biaya Admin Murah</p>
-                    <button class="buy-btn" onclick="tambahKeKeranjang('Layanan Perbankan')">Tambah ke Keranjang</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/transfer-bank.png" alt="Layanan Transfer Bank">
+                    <div class="product-info">
+                        <p class="product-title">Layanan Transfer Bank</p>
+                        <p class="product-price">Admin Murah</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Layanan Perbankan')">+ Tambah</button>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">Top Up E-Wallet</div>
-                <div class="product-info">
-                    <p class="product-title">Top Up Dana, OVO, GoPay, ShopeePay</p>
-                    <p class="product-price">Langsung Masuk</p>
-                    <button class="buy-btn" onclick="tambahKeKeranjang('Top Up E-Wallet')">Tambah ke Keranjang</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/top-up-ewallet.png" alt="Top Up E-Wallet">
+                    <div class="product-info">
+                        <p class="product-title">Top Up E-Wallet</p>
+                        <p class="product-price">Langsung Masuk</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Top Up E-Wallet')">+ Tambah</button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- Menu Makanan & Minuman -->
-        <h3 class="section-title" style="margin-top: 40px; border-bottom-color: #ff9800;">Menu Makanan & Minuman</h3>
-        <section class="product-grid" id="foodGrid">
-            
-            <!-- Menu Pedas -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #ffebee; color: #d32f2f; font-size: 24px;">🌶️ Menu Pedas</div>
-                <div class="product-info" style="padding: 15px;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px; border-bottom: 2px solid #f44336; padding-bottom: 5px;">Pilih Level 1-5 (infokan di WA)</p>
-                    <div class="menu-item">
-                        <span>Tempura (5-10k)</span>
-                        <button class="add-btn add-red" onclick="tambahKeKeranjang('Tempura (Pedas)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Baso Geprek (5-10k)</span>
-                        <button class="add-btn add-red" onclick="tambahKeKeranjang('Baso Geprek (Pedas)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Mie Pedas (10k)</span>
-                        <button class="add-btn add-red" onclick="tambahKeKeranjang('Mie Pedas (10k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Ceker Mercon (10k)</span>
-                        <button class="add-btn add-red" onclick="tambahKeKeranjang('Ceker Mercon (10k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Kwetiau (10k)</span>
-                        <button class="add-btn add-red" onclick="tambahKeKeranjang('Kwetiau Pedas (10k)')">+ Tambah</button>
+        <!-- KATEGORI: MENU PEDAS -->
+        <div id="kategori-pedas" class="category-section">
+            <h3 class="section-title">Menu Pedas (Level 1-5)</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/tempura-pedas.png" alt="Tempura Pedas">
+                    <div class="product-info">
+                        <p class="product-title">Tempura Pedas</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Tempura Pedas')">+ Tambah</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Menu Spaghetti -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #fff8e1; color: #f57f17; font-size: 24px;">🍝 Menu Spaghetti</div>
-                <div class="product-info" style="padding: 15px;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px; border-bottom: 2px solid #ff9800; padding-bottom: 5px;">Semua Varian 5k</p>
-                    <div class="menu-item">
-                        <span>Spaghetti Bolognese</span>
-                        <button class="add-btn add-orange" onclick="tambahKeKeranjang('Spaghetti Bolognese (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Spaghetti Carbonara</span>
-                        <button class="add-btn add-orange" onclick="tambahKeKeranjang('Spaghetti Carbonara (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Spaghetti Aglio Olio</span>
-                        <button class="add-btn add-orange" onclick="tambahKeKeranjang('Spaghetti Aglio Olio (5k)')">+ Tambah</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/baso-geprek.png" alt="Baso Geprek">
+                    <div class="product-info">
+                        <p class="product-title">Baso Geprek</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Baso Geprek')">+ Tambah</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Menu Kering -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #fff3e0; color: #e65100; font-size: 24px;">🍟 Menu Kering</div>
-                <div class="product-info" style="padding: 15px;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px; border-bottom: 2px solid #ff9800; padding-bottom: 5px;">Semua Varian 5k</p>
-                    <div class="menu-item">
-                        <span>Kentang Goreng</span>
-                        <button class="add-btn add-orange" onclick="tambahKeKeranjang('Kentang Goreng (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Nugget Goreng</span>
-                        <button class="add-btn add-orange" onclick="tambahKeKeranjang('Nugget Goreng (5k)')">+ Tambah</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/mie-pedas.png" alt="Mie Pedas">
+                    <div class="product-info">
+                        <p class="product-title">Mie Pedas</p>
+                        <p class="product-price">Rp 10.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Mie Pedas 10k')">+ Tambah</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Menu Corndog -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #efebe9; color: #5d4037; font-size: 24px;">🌭 Corndog</div>
-                <div class="product-info" style="padding: 15px;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px; border-bottom: 2px solid #8d6e63; padding-bottom: 5px;">Semua Varian 5k</p>
-                    <div class="menu-item">
-                        <span>Taro Small</span>
-                        <button class="add-btn add-brown" onclick="tambahKeKeranjang('Corndog Taro Small (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Coklat Small</span>
-                        <button class="add-btn add-brown" onclick="tambahKeKeranjang('Corndog Coklat Small (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Tiramisu Small</span>
-                        <button class="add-btn add-brown" onclick="tambahKeKeranjang('Corndog Tiramisu Small (5k)')">+ Tambah</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/ceker-mercon.png" alt="Ceker Mercon">
+                    <div class="product-info">
+                        <p class="product-title">Ceker Mercon</p>
+                        <p class="product-price">Rp 10.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Ceker Mercon 10k')">+ Tambah</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Menu Minuman -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #e3f2fd; color: #1565c0; font-size: 24px;">🥤 Minuman</div>
-                <div class="product-info" style="padding: 15px;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px; border-bottom: 2px solid #1e88e5; padding-bottom: 5px;">Mulai 1k - 5k</p>
-                    <div class="menu-item">
-                        <span>Tea Jus (1k)</span>
-                        <button class="add-btn add-blue" onclick="tambahKeKeranjang('Tea Jus (1k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Stiky Milky (5k)</span>
-                        <button class="add-btn add-blue" onclick="tambahKeKeranjang('Stiky Milky (5k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Pop Ice (4k)</span>
-                        <button class="add-btn add-blue" onclick="tambahKeKeranjang('Pop Ice (4k)')">+ Tambah</button>
-                    </div>
-                    <div class="menu-item">
-                        <span>Coffe (5k)</span>
-                        <button class="add-btn add-blue" onclick="tambahKeKeranjang('Coffe (5k)')">+ Tambah</button>
+                <div class="product-card">
+                    <img class="product-image" src="images/kwetiau.png" alt="Kwetiau">
+                    <div class="product-info">
+                        <p class="product-title">Kwetiau Pedas</p>
+                        <p class="product-price">Rp 10.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Kwetiau 10k')">+ Tambah</button>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- Formulir Kontak WA -->
+        <!-- KATEGORI: SPAGHETTI -->
+        <div id="kategori-spaghetti" class="category-section">
+            <h3 class="section-title">Menu Spaghetti</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/spaghetti-bolognese.png" alt="Spaghetti Bolognese">
+                    <div class="product-info">
+                        <p class="product-title">Spaghetti Bolognese</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Spaghetti Bolognese (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/spaghetti-carbonara.png" alt="Spaghetti Carbonara">
+                    <div class="product-info">
+                        <p class="product-title">Spaghetti Carbonara</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Spaghetti Carbonara (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/spaghetti-aglio-olio.png" alt="Spaghetti Aglio Olio">
+                    <div class="product-info">
+                        <p class="product-title">Spaghetti Aglio Olio</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Spaghetti Aglio Olio (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- KATEGORI: MENU KERING -->
+        <div id="kategori-kering" class="category-section">
+            <h3 class="section-title">Menu Kering</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/kentang-goreng.png" alt="Kentang Goreng">
+                    <div class="product-info">
+                        <p class="product-title">Kentang Goreng</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Kentang Goreng (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/nugget-goreng.png" alt="Nugget Goreng">
+                    <div class="product-info">
+                        <p class="product-title">Nugget Goreng</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Nugget Goreng (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- KATEGORI: CORNDOG -->
+        <div id="kategori-corndog" class="category-section">
+            <h3 class="section-title">Corndog</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/corndog-taro.png" alt="Corndog Taro">
+                    <div class="product-info">
+                        <p class="product-title">Corndog Taro Small</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Corndog Taro Small (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/corndog-coklat.png" alt="Corndog Coklat">
+                    <div class="product-info">
+                        <p class="product-title">Corndog Coklat Small</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Corndog Coklat Small (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/corndog-tiramisu.png" alt="Corndog Tiramisu">
+                    <div class="product-info">
+                        <p class="product-title">Corndog Tiramisu Small</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Corndog Tiramisu Small (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- KATEGORI: MINUMAN -->
+        <div id="kategori-minuman" class="category-section">
+            <h3 class="section-title">Minuman</h3>
+            <section class="product-grid">
+                <div class="product-card">
+                    <img class="product-image" src="images/tea-jus.png" alt="Tea Jus">
+                    <div class="product-info">
+                        <p class="product-title">Tea Jus</p>
+                        <p class="product-price">Rp 1.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Tea Jus (1k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/stiky-milky.png" alt="Stiky Milky">
+                    <div class="product-info">
+                        <p class="product-title">Stiky Milky</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Stiky Milky (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/pop-ice.png" alt="Pop Ice">
+                    <div class="product-info">
+                        <p class="product-title">Pop Ice</p>
+                        <p class="product-price">Rp 4.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Pop Ice (4k)')">+ Tambah</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="images/coffe.png" alt="Coffe">
+                    <div class="product-info">
+                        <p class="product-title">Coffe</p>
+                        <p class="product-price">Rp 5.000</p>
+                        <button class="buy-btn" onclick="tambahKeKeranjang('Coffe (5k)')">+ Tambah</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Formulir Kontak WA Umum -->
         <section class="contact-section">
-            <h3>Hubungi Admin AYDEN STORE</h3>
-            <p class="contact-desc">Punya pertanyaan atau butuh bantuan? Masukkan nama Anda untuk terhubung langsung dengan admin kami via WhatsApp.</p>
+            <h3>Bantuan / Kirim Bukti Pembayaran</h3>
             <div class="wa-form">
-                <input type="text" id="namaPengirim" placeholder="Ketik nama Anda di sini..." required>
+                <input type="text" id="namaPengirim" placeholder="Nama Anda..." required>
                 <select id="jenisPesan">
                     <option value="tanya">Tanya Produk/Layanan</option>
-                    <option value="kirim_media">Kirim Foto / Dokumen / Bukti Pembayaran</option>
+                    <option value="kirim_media">Kirim Foto / Bukti Pembayaran</option>
                 </select>
-                <button onclick="bukaWhatsApp()">Chat via WhatsApp</button>
+                <button onclick="bukaWhatsApp()">Chat Admin</button>
             </div>
         </section>
+        
+        <!-- Jarak untuk Floating Cart -->
+        <div style="height: 100px;"></div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2026 AYDEN STORE. Service & Great Choice For Your Gadget.</p>
-    </footer>
+    <!-- Tombol Keranjang Melayang di Bawah (Floating Bottom Cart) -->
+    <div id="floatingCart" class="floating-cart" onclick="bukaKeranjang()">
+        <div class="cart-info">
+            <span class="cart-icon">🛒</span>
+            <span id="floatingBadge">0</span> Barang
+        </div>
+        <div class="cart-action">
+            Lihat Keranjang ➔
+        </div>
+    </div>
 
-    <!-- Memanggil file JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

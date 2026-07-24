@@ -1,109 +1,107 @@
-// Nomor WhatsApp Admin AYDEN STORE
 const nomorWA = "6282386130512";
-
-// Array untuk menyimpan daftar belanja
 let keranjang = [];
 
-// Fungsi Fitur Pencarian (Search)
 function cariProduk() {
-    var kataKunci = document.getElementById("searchInput").value;
-    if (kataKunci.trim() === "") {
-        alert("Silakan ketik nama barang atau layanan yang ingin dicari.");
-    } else {
-        alert("Anda mencari: " + kataKunci + ".\n(Saat ini fitur pencarian masih dalam pengembangan)");
+    var kataKunci = document.getElementById("searchInput").value.toLowerCase();
+    var semuaProduk = document.getElementsByClassName("product-card");
+
+    for (var i = 0; i < semuaProduk.length; i++) {
+        var judulProduk = semuaProduk[i].getElementsByClassName("product-title")[0];
+        if (judulProduk) {
+            var teksJudul = judulProduk.innerText.toLowerCase();
+            if (teksJudul.includes(kataKunci)) {
+                semuaProduk[i].style.display = "flex"; 
+            } else {
+                semuaProduk[i].style.display = "none"; 
+            }
+        }
     }
 }
 
-// Fungsi Memasukkan Barang ke Keranjang
 function tambahKeKeranjang(namaProduk) {
     keranjang.push(namaProduk);
     updateNotifikasiKeranjang();
-    alert("Berhasil ditambahkan! " + namaProduk + " masuk ke keranjang.");
+    
+    // Tampilkan notifikasi pop-up kecil di layar
+    var notif = document.createElement("div");
+    notif.innerText = "+1 " + namaProduk;
+    notif.style.position = "fixed";
+    notif.style.top = "20px";
+    notif.style.left = "50%";
+    notif.style.transform = "translateX(-50%)";
+    notif.style.backgroundColor = "#333";
+    notif.style.color = "white";
+    notif.style.padding = "10px 20px";
+    notif.style.borderRadius = "20px";
+    notif.style.zIndex = "9999";
+    document.body.appendChild(notif);
+    
+    setTimeout(function() {
+        notif.remove();
+    }, 1500);
 }
 
-// Fungsi Menghapus Barang dari Keranjang
 function hapusDariKeranjang(index) {
     keranjang.splice(index, 1);
     updateNotifikasiKeranjang();
-    tampilkanIsiKeranjang(); // Me-refresh isi pop-up
+    tampilkanIsiKeranjang(); 
 }
 
-// Fungsi Memunculkan Angka Notifikasi Merah
 function updateNotifikasiKeranjang() {
-    var badge = document.getElementById("cartBadge");
-    if (badge) {
+    var floatCart = document.getElementById("floatingCart");
+    var badge = document.getElementById("floatingBadge");
+    
+    if (keranjang.length > 0) {
+        floatCart.style.display = "flex";
         badge.innerText = keranjang.length;
-        badge.style.display = keranjang.length > 0 ? "block" : "none";
+    } else {
+        floatCart.style.display = "none";
+        // Tutup modal jika kosong
+        tutupKeranjang();
     }
 }
 
-// Fungsi Membuka Pop-up Keranjang
 function bukaKeranjang() {
+    if (keranjang.length === 0) return;
     document.getElementById("cartModal").style.display = "block";
     tampilkanIsiKeranjang();
 }
 
-// Fungsi Menutup Pop-up Keranjang
 function tutupKeranjang() {
     document.getElementById("cartModal").style.display = "none";
 }
 
-// Fungsi Menampilkan Daftar Barang di Dalam Pop-up
 function tampilkanIsiKeranjang() {
     var cartList = document.getElementById("cartList");
     cartList.innerHTML = ""; 
     
-    if (keranjang.length === 0) {
-        cartList.innerHTML = "<li>Keranjang belanja Anda masih kosong.</li>";
-        return;
-    }
-
     keranjang.forEach(function(item, index) {
         var li = document.createElement("li");
-        li.innerHTML = item + ' <button class="remove-btn" onclick="hapusDariKeranjang(' + index + ')">X</button>';
+        li.innerHTML = item + ' <button class="remove-btn" onclick="hapusDariKeranjang(' + index + ')">Hapus</button>';
         cartList.appendChild(li);
     });
 }
 
-// Fungsi Checkout Seluruh Keranjang ke WhatsApp
 function checkoutWhatsApp() {
-    if (keranjang.length === 0) {
-        alert("Keranjang masih kosong! Silakan pilih produk terlebih dahulu.");
-        return;
-    }
-
     var daftarPesanan = keranjang.map(function(item, index) {
         return (index + 1) + ". " + item;
     }).join("\n");
     
-    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\nMohon informasi total harga dan metode pembayarannya. Terima kasih.";
+    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\nMohon informasi total harga dan ketersediaan. Terima kasih.";
     var pesanFormatURL = encodeURIComponent(pesan);
-    var linkFinal = "https://wa.me/" + nomorWA + "?text=" + pesanFormatURL;
-    
-    window.open(linkFinal, "_blank");
+    window.open("https://wa.me/" + nomorWA + "?text=" + pesanFormatURL, "_blank");
 }
 
-// Fungsi Mengirim Pesan Biasa/Bukti TF (Dari Formulir Bawah)
 function bukaWhatsApp() {
     var nama = document.getElementById("namaPengirim").value;
-    
     if (nama.trim() === "") {
-        alert("Silakan isi nama Anda terlebih dahulu.");
+        alert("Silakan isi nama Anda.");
         return;
     }
-
-    var elemenJenisPesan = document.getElementById("jenisPesan");
-    var jenis = elemenJenisPesan ? elemenJenisPesan.value : "tanya";
-    var pesan = "";
-
-    if (jenis === "tanya") {
-        pesan = "Halo AYDEN STORE, saya " + nama + ", saya ingin bertanya mengenai layanan yang ada di toko.";
-    } else if (jenis === "kirim_media") {
-        pesan = "Halo AYDEN STORE, saya " + nama + ". Berikut saya lampirkan foto/dokumen yang dibutuhkan (Tunggu sebentar, saya sedang melampirkan file...).";
-    }
+    var jenis = document.getElementById("jenisPesan").value;
+    var pesan = jenis === "tanya" ? 
+        "Halo AYDEN STORE, saya " + nama + ", ingin bertanya mengenai layanan toko." : 
+        "Halo AYDEN STORE, saya " + nama + ". Berikut lampiran dokumen/foto (Tunggu sebentar...).";
     
-    var pesanFormatURL = encodeURIComponent(pesan);
-    var linkFinal = "https://wa.me/" + nomorWA + "?text=" + pesanFormatURL;
-    
-    window.open(linkFinal, "_blank");
+    window.open("https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(pesan), "_blank");
 }
