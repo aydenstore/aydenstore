@@ -12,9 +12,20 @@
         <div class="logo">
             <h1>AYDEN STORE</h1>
         </div>
+        
+        <!-- Ikon WhatsApp Header -->
+        <a href="https://wa.me/6282386130512" target="_blank" class="header-wa" title="Chat Admin">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="28" height="28">
+        </a>
+
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Cari produk di Ayden Store..." onkeyup="cariProduk()">
             <button onclick="cariProduk()">🔍</button>
+        </div>
+        
+        <div class="header-icons" onclick="bukaKeranjang()" style="position: relative; cursor: pointer;">
+            <span class="cart-icon">🛒</span>
+            <span id="cartBadge" class="cart-badge">0</span>
         </div>
     </header>
 
