@@ -83,14 +83,34 @@ function tampilkanIsiKeranjang() {
 }
 
 function checkoutWhatsApp() {
+    if (keranjang.length === 0) {
+        alert("Keranjang masih kosong! Silakan pilih produk terlebih dahulu.");
+        return;
+    }
+
+    // Menanyakan metode pembayaran kepada pelanggan sebelum dikirim ke WA
+    var metodeBayar = prompt("Pilih metode pembayaran:\n1. QRIS\n2. COD\n\nKetik angka pilihan Anda (1 atau 2):", "1");
+    
+    if (metodeBayar === null) {
+        return; // Jika dibatalkan
+    }
+
+    var jenisPembayaran = "";
+    if (metodeBayar.trim() === "2" || metodeBayar.toLowerCase().includes("cod")) {
+        jenisPembayaran = "COD (Bayar di Tempat)";
+    } else {
+        jenisPembayaran = "QRIS";
+    }
+
     var daftarPesanan = keranjang.map(function(item, index) {
         return (index + 1) + ". " + item;
     }).join("\n");
     
-    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\nMohon informasi total harga dan ketersediaan. Terima kasih.";
+    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\n*Metode Pembayaran:* " + jenisPembayaran + "\n\nMohon informasi selanjutnya. Terima kasih.";
     var pesanFormatURL = encodeURIComponent(pesan);
     window.open("https://wa.me/" + nomorWA + "?text=" + pesanFormatURL, "_blank");
 }
+
 
 function bukaWhatsApp() {
     var nama = document.getElementById("namaPengirim").value;
