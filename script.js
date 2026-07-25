@@ -1,6 +1,12 @@
-const nomorWA = "6283153215528";
+// Nomor WhatsApp Admin AYDEN STORE
+const nomorWA = "6282386130512";
+
+// Array untuk menyimpan daftar belanja
 let keranjang = [];
 
+// ==========================================
+// FUNGSI PENCARIAN (LIVE SEARCH)
+// ==========================================
 function cariProduk() {
     var kataKunci = document.getElementById("searchInput").value.toLowerCase();
     var semuaProduk = document.getElementsByClassName("product-card");
@@ -18,11 +24,14 @@ function cariProduk() {
     }
 }
 
+// ==========================================
+// SISTEM KERANJANG BELANJA
+// ==========================================
 function tambahKeKeranjang(namaProduk) {
     keranjang.push(namaProduk);
     updateNotifikasiKeranjang();
     
-    // Tampilkan notifikasi pop-up kecil di layar
+    // Tampilkan notifikasi pop-up kecil di layar saat ditambah
     var notif = document.createElement("div");
     notif.innerText = "+1 " + namaProduk;
     notif.style.position = "fixed";
@@ -36,6 +45,7 @@ function tambahKeKeranjang(namaProduk) {
     notif.style.zIndex = "9999";
     document.body.appendChild(notif);
     
+    // Hilangkan pop-up notifikasi setelah 1.5 detik
     setTimeout(function() {
         notif.remove();
     }, 1500);
@@ -56,7 +66,7 @@ function updateNotifikasiKeranjang() {
         badge.innerText = keranjang.length;
     } else {
         floatCart.style.display = "none";
-        // Tutup modal jika kosong
+        // Tutup modal jika keranjang kosong
         tutupKeranjang();
     }
 }
@@ -82,24 +92,13 @@ function tampilkanIsiKeranjang() {
     });
 }
 
-function checkoutWhatsApp() {
+// ==========================================
+// CHECKOUT WHATSAPP (QRIS / COD)
+// ==========================================
+function checkoutWhatsApp(jenisPembayaran) {
     if (keranjang.length === 0) {
         alert("Keranjang masih kosong! Silakan pilih produk terlebih dahulu.");
         return;
-    }
-
-    // Menanyakan metode pembayaran kepada pelanggan sebelum dikirim ke WA
-    var metodeBayar = prompt("Pilih metode pembayaran:\n1. QRIS\n2. COD\n\nKetik angka pilihan Anda (1 atau 2):", "1");
-    
-    if (metodeBayar === null) {
-        return; // Jika dibatalkan
-    }
-
-    var jenisPembayaran = "";
-    if (metodeBayar.trim() === "2" || metodeBayar.toLowerCase().includes("cod")) {
-        jenisPembayaran = "COD (Bayar di Tempat)";
-    } else {
-        jenisPembayaran = "QRIS";
     }
 
     var daftarPesanan = keranjang.map(function(item, index) {
@@ -107,17 +106,22 @@ function checkoutWhatsApp() {
     }).join("\n");
     
     var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\n*Metode Pembayaran:* " + jenisPembayaran + "\n\nMohon informasi selanjutnya. Terima kasih.";
+    
     var pesanFormatURL = encodeURIComponent(pesan);
     window.open("https://wa.me/" + nomorWA + "?text=" + pesanFormatURL, "_blank");
 }
 
-
+// ==========================================
+// FORMULIR KONTAK (BAWAH)
+// ==========================================
 function bukaWhatsApp() {
     var nama = document.getElementById("namaPengirim").value;
+    
     if (nama.trim() === "") {
         alert("Silakan isi nama Anda.");
         return;
     }
+    
     var jenis = document.getElementById("jenisPesan").value;
     var pesan = jenis === "tanya" ? 
         "Halo AYDEN STORE, saya " + nama + ", ingin bertanya mengenai layanan toko." : 
