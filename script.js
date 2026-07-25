@@ -77,6 +77,7 @@ function bukaKeranjang() {
 
 function tutupKeranjang() {
     document.getElementById("cartModal").style.display = "none";
+    kembaliKeKeranjang(); // Pastikan saat ditutup, tampilan kembali ke daftar awal
 }
 
 function tampilkanIsiKeranjang() {
@@ -91,32 +92,37 @@ function tampilkanIsiKeranjang() {
 }
 
 // ==========================================
-// CHECKOUT WHATSAPP (QRIS / COD)
+// ALUR CHECKOUT QRIS & WA
 // ==========================================
-function checkoutWhatsApp(jenisPembayaran) {
+
+// Fungsi mengubah isi pop-up menjadi gambar QRIS
+function tampilkanLayarQRIS() {
     if (keranjang.length === 0) {
-        alert("Keranjang masih kosong! Silakan pilih produk terlebih dahulu.");
+        alert("Keranjang masih kosong!");
         return;
     }
+    document.getElementById("cartMainView").style.display = "none";
+    document.getElementById("qrisCheckoutView").style.display = "block";
+}
+
+// Fungsi kembali ke daftar belanjaan dari layar QRIS
+function kembaliKeKeranjang() {
+    document.getElementById("qrisCheckoutView").style.display = "none";
+    document.getElementById("cartMainView").style.display = "block";
+}
+
+// Fungsi akhir untuk loncat ke WhatsApp
+function prosesKeWhatsApp(jenisPembayaran) {
+    if (keranjang.length === 0) return;
 
     var daftarPesanan = keranjang.map(function(item, index) {
         return (index + 1) + ". " + item;
     }).join("\n");
     
-    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\n*Metode Pembayaran:* " + jenisPembayaran + "\n\nMohon informasi selanjutnya. Terima kasih.";
+    var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\n*Metode Pembayaran:* " + jenisPembayaran + "\n\nMohon informasi total harganya. Terima kasih.";
     var pesanFormatURL = encodeURIComponent(pesan);
 
-    // JIKA MEMILIH QRIS: Otomatis download file QRIS terlebih dahulu
-    if (jenisPembayaran === 'QRIS') {
-        var downloadLink = document.createElement('a');
-        downloadLink.href = 'images/qris-ayden.jpg'; // Pastikan nama file gambarnya sesuai di folder images
-        downloadLink.download = 'QRIS-Ayden-Store.jpg';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    }
-
-    // Membuka WhatsApp
+    // Buka WhatsApp
     window.open("https://wa.me/" + nomorWA + "?text=" + pesanFormatURL, "_blank");
 }
 
