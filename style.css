@@ -246,8 +246,42 @@ body {
 .checkout-btn-modal {
     width: 100%; padding: 12px; background-color: #5fa375; /* Hijau WhatsApp yang lebih kalem */ color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s;
 }
-.checkout-btn-modal:hover { background-color: #4f8c63; }
 
+/* ================= TOMBOL CHECKOUT DI KERANJANG ================= */
+.checkout-methods { 
+    margin-top: 15px; 
+    border-top: 1px solid #f0f0f0; 
+    padding-top: 15px; 
+}
+.checkout-title { 
+    text-align: center; 
+    font-size: 14px; 
+    font-weight: 600; 
+    color: #4a4a4a; 
+    margin-bottom: 12px; 
+}
+.checkout-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}
+.btn-checkout-qris, .btn-checkout-cod {
+    width: 100%; 
+    padding: 12px; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    font-size: 15px; 
+    cursor: pointer; 
+    transition: background 0.3s; 
+    color: white;
+}
+.btn-checkout-qris { background-color: #607d8b; }
+.btn-checkout-qris:hover { background-color: #4b636e; }
+
+.btn-checkout-cod { background-color: #5fa375; }
+.btn-checkout-cod:hover { background-color: #4f8c63; }
+
 /* ================= KONTAK ================= */
 .contact-section { 
     background: white; padding: 25px; border-radius: 12px; border: 1px solid #ebebeb; margin-top: 20px;
