@@ -45,7 +45,6 @@ function tambahKeKeranjang(namaProduk) {
     notif.style.zIndex = "9999";
     document.body.appendChild(notif);
     
-    // Hilangkan pop-up notifikasi setelah 1.5 detik
     setTimeout(function() {
         notif.remove();
     }, 1500);
@@ -66,7 +65,6 @@ function updateNotifikasiKeranjang() {
         badge.innerText = keranjang.length;
     } else {
         floatCart.style.display = "none";
-        // Tutup modal jika keranjang kosong
         tutupKeranjang();
     }
 }
@@ -106,8 +104,19 @@ function checkoutWhatsApp(jenisPembayaran) {
     }).join("\n");
     
     var pesan = "Halo AYDEN STORE, saya ingin memesan:\n\n" + daftarPesanan + "\n\n*Metode Pembayaran:* " + jenisPembayaran + "\n\nMohon informasi selanjutnya. Terima kasih.";
-    
     var pesanFormatURL = encodeURIComponent(pesan);
+
+    // JIKA MEMILIH QRIS: Otomatis download file QRIS terlebih dahulu
+    if (jenisPembayaran === 'QRIS') {
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'images/qris-ayden.jpg'; // Pastikan nama file gambarnya sesuai di folder images
+        downloadLink.download = 'QRIS-Ayden-Store.jpg';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
+    // Membuka WhatsApp
     window.open("https://wa.me/" + nomorWA + "?text=" + pesanFormatURL, "_blank");
 }
 
