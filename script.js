@@ -35,14 +35,18 @@ function tambahKeKeranjang(namaProduk) {
     var notif = document.createElement("div");
     notif.innerText = "+1 " + namaProduk;
     notif.style.position = "fixed";
-    notif.style.top = "20px";
-    notif.style.left = "50%";
-    notif.style.transform = "translateX(-50%)";
+    notif.style.top = "80px"; /* Diturunkan sedikit agar tidak tertutup header */
+    notif.style.left = "0";
+    notif.style.right = "0";
+    notif.style.margin = "0 auto"; /* Otomatis ke tengah */
+    notif.style.width = "max-content"; /* Ukuran menyesuaikan teks */
+    notif.style.maxWidth = "80%";
+    notif.style.textAlign = "center";
     notif.style.backgroundColor = "#333";
     notif.style.color = "white";
     notif.style.padding = "10px 20px";
     notif.style.borderRadius = "20px";
-    notif.style.zIndex = "9999";
+    notif.style.zIndex = "10000";
     document.body.appendChild(notif);
     
     setTimeout(function() {
