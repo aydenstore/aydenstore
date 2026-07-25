@@ -39,22 +39,40 @@
         <a href="#kategori-minuman" class="cat-btn">🥤 Minuman</a>
     </nav>
     
-        <!-- Pop-up Keranjang Belanja -->
+<!-- Pop-up Keranjang Belanja -->
     <div id="cartModal" class="cart-modal">
         <div class="cart-content">
             <span class="close-cart" onclick="tutupKeranjang()">&times;</span>
-            <h2>Keranjang Belanja</h2>
-            <ul id="cartList" class="cart-list"></ul>
             
-            <!-- Tombol Checkout Pilihan Metode -->
-            <div class="checkout-methods">
-                <p class="checkout-title">Pilih Metode Pembayaran:</p>
-                <div class="checkout-buttons">
-                    <button class="btn-checkout-qris" onclick="checkoutWhatsApp('QRIS')">📱 Checkout via QRIS</button>
-                    <button class="btn-checkout-cod" onclick="checkoutWhatsApp('COD (Bayar di Tempat)')">🤝 Checkout via COD</button>
+            <!-- Tampilan 1: Daftar Keranjang -->
+            <div id="cartMainView">
+                <h2>Keranjang Belanja</h2>
+                <ul id="cartList" class="cart-list"></ul>
+                
+                <div class="checkout-methods">
+                    <p class="checkout-title">Pilih Metode Pembayaran:</p>
+                    <div class="checkout-buttons">
+                        <!-- Mengarah ke tampilan QRIS -->
+                        <button class="btn-checkout-qris" onclick="tampilkanLayarQRIS()">📱 Checkout via QRIS</button>
+                        <!-- Langsung ke WA -->
+                        <button class="btn-checkout-cod" onclick="prosesKeWhatsApp('COD (Bayar di Tempat)')">🤝 Checkout via COD</button>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Tampilan 2: Layar QRIS (Awalnya Disembunyikan) -->
+            <div id="qrisCheckoutView" style="display: none; text-align: center;">
+                <h2 style="color: #607d8b; margin-bottom: 10px;">Scan QRIS</h2>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Silakan scan atau screenshot kode QR di bawah ini untuk membayar pesanan Anda.</p>
+                
+                <img src="images/qris-ayden.jpg" alt="QRIS Ayden Store" style="width: 100%; max-width: 250px; border-radius: 10px; border: 2px solid #f0f2f5; margin-bottom: 20px;">
+                
+                <!-- Tombol Lanjut ke WA -->
+                <button class="btn-checkout-qris" onclick="prosesKeWhatsApp('QRIS')" style="margin-bottom: 10px;">Lanjutkan Order ke WA ➔</button>
+                <!-- Tombol Kembali -->
+                <button onclick="kembaliKeKeranjang()" style="width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; background-color: #e2e5e8; color: #4a4a4a; cursor: pointer;">⬅️ Kembali ke Keranjang</button>
+            </div>
+
         </div>
     </div>
 
