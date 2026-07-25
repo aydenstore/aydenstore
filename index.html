@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ko<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -39,15 +39,25 @@
         <a href="#kategori-minuman" class="cat-btn">🥤 Minuman</a>
     </nav>
     
-    <!-- Pop-up Keranjang Belanja -->
+        <!-- Pop-up Keranjang Belanja -->
     <div id="cartModal" class="cart-modal">
         <div class="cart-content">
             <span class="close-cart" onclick="tutupKeranjang()">&times;</span>
             <h2>Keranjang Belanja</h2>
             <ul id="cartList" class="cart-list"></ul>
-            <button class="checkout-btn-modal" onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
+            
+            <!-- Tombol Checkout Pilihan Metode -->
+            <div class="checkout-methods">
+                <p class="checkout-title">Pilih Metode Pembayaran:</p>
+                <div class="checkout-buttons">
+                    <button class="btn-checkout-qris" onclick="checkoutWhatsApp('QRIS')">📱 Checkout via QRIS</button>
+                    <button class="btn-checkout-cod" onclick="checkoutWhatsApp('COD (Bayar di Tempat)')">🤝 Checkout via COD</button>
+                </div>
+            </div>
+            
         </div>
     </div>
+
 
     <main class="container">
         <!-- Banner Promo -->
