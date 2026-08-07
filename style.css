@@ -219,19 +219,21 @@ html, body {
 .cart-modal {
     display: none;
     position: fixed; 
-    z-index: 1001; 
+    z-index: 10005; /* Angka dinaikkan agar pop-up PASTI berada di atas tombol melayang */
     left: 0; top: 0; 
     width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.4); /* Overlay transparan yang lebih soft */
+    background-color: rgba(0,0,0,0.4);
     backdrop-filter: blur(2px);
 }
 .cart-content {
     background-color: white;
-    margin: 10% auto;
+    margin: 5% auto; /* Margin atas diperkecil agar tidak terlalu ke bawah */
     padding: 20px;
     border-radius: 12px;
     width: 90%;
     max-width: 400px;
+    max-height: 85vh; /* Pop-up tidak akan melebihi tinggi layar komputer/HP */
+    overflow-y: auto; /* Jika isi terlalu panjang, pop-up bisa di-scroll di dalamnya */
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 .close-cart { float: right; font-size: 24px; cursor: pointer; color: #aaa; margin-top: -5px;}
